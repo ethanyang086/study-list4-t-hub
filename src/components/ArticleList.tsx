@@ -22,6 +22,10 @@ export const ArticleList: React.FC<ArticleListProps> = ({
     ? articles
     : articles.filter(a => a.category === filterCategory);
 
+  const getCategoryCount = (category: Category): number => {
+    return articles.filter(a => a.category === category).length;
+  };
+
   const handleOpenUrl = (url: string) => {
     window.open(url, '_blank');
   };
@@ -45,7 +49,7 @@ export const ArticleList: React.FC<ArticleListProps> = ({
               className={`filter-button ${filterCategory === 'all' ? 'active' : ''}`}
               onClick={() => setFilterCategory('all')}
             >
-              全部
+              全部 ({articles.length})
             </button>
             {CATEGORIES.map((cat) => (
               <button
@@ -54,7 +58,7 @@ export const ArticleList: React.FC<ArticleListProps> = ({
                 className={`filter-button ${filterCategory === cat ? 'active' : ''}`}
                 onClick={() => setFilterCategory(cat)}
               >
-                {cat}
+                {cat} ({getCategoryCount(cat)})
               </button>
             ))}
           </div>
